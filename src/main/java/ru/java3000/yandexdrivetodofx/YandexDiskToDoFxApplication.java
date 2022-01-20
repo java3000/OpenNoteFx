@@ -11,7 +11,12 @@ public class YandexDiskToDoFxApplication extends Application {
 
     public static final String TITLE = "Yandex Disk ToDo!";
     Settings settings = Settings.getInstance();
-    protected static Stage primaryStage;
+    private static Stage primaryStage;
+
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
 
 
     @Override

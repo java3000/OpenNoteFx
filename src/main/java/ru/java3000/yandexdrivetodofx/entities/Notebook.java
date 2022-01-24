@@ -1,14 +1,30 @@
-package ru.java3000.yandexdrivetodofx;
+package ru.java3000.yandexdrivetodofx.entities;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import ru.java3000.yandexdrivetodofx.entities.Note;
+import jakarta.xml.bind.*;
+import ru.java3000.yandexdrivetodofx.services.LocalDateAdapter;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Notebook {
 
-    private String name;
+    @XmlElement
+    public String name;
+    @XmlElement
     private String description;
+    @XmlElement
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDateTime creationTime;
+    @XmlElement
     private List<Note> notes;
+    @XmlElement
     private String shareLink;
 
     public Notebook() {

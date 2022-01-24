@@ -1,11 +1,11 @@
-package ru.java3000.yandexdrivetodofx;
+package ru.java3000.yandexdrivetodofx.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 
-public class SplashScreenController {
+public class SplashScreen {
     @FXML
     private ImageView imageView;
 

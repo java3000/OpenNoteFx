@@ -1,4 +1,4 @@
-package ru.java3000.yandexdrivetodofx;
+package ru.java3000.yandexdrivetodofx.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,19 +7,21 @@ import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import ru.java3000.yandexdrivetodofx.services.SettingsService;
+import ru.java3000.yandexdrivetodofx.YandexDiskToDoFxApplication;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class YandexFirstAuthorizationController implements Initializable {
+public class YandexFirstAuth implements Initializable {
 
     @FXML
     WebView browser = new WebView();
 
     private WebEngine webEngine;
-    private Settings settings = Settings.getInstance();
+    private SettingsService settingsService = SettingsService.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -37,8 +39,8 @@ public class YandexFirstAuthorizationController implements Initializable {
 
                 String ref = url.getRef();
                 if (ref != null) {
-                    settings.setappToken(ref.split("&")[0].split("=")[1]);
-                    settings.saveLocalSettings();
+                    settingsService.setappToken(ref.split("&")[0].split("=")[1]);
+                    settingsService.saveLocalSettings();
 
                     FXMLLoader fxmlLoader = new FXMLLoader(YandexDiskToDoFxApplication.class.getResource("main_view.fxml"));
                     Scene scene = null;
@@ -53,6 +55,6 @@ public class YandexFirstAuthorizationController implements Initializable {
             }
         });
 
-        webEngine.load(settings.getAppOauthFullPath());
+        webEngine.load(settingsService.getAppOauthFullPath());
     }
 }

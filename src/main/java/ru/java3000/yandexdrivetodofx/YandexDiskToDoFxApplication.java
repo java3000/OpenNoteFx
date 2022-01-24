@@ -4,13 +4,14 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ru.java3000.yandexdrivetodofx.services.SettingsService;
 
 import java.io.IOException;
 
 public class YandexDiskToDoFxApplication extends Application {
 
     public static final String TITLE = "Yandex Disk ToDo!";
-    Settings settings = Settings.getInstance();
+    SettingsService settingsService = SettingsService.getInstance();
     private static Stage primaryStage;
 
     public static Stage getPrimaryStage() {
@@ -28,13 +29,13 @@ public class YandexDiskToDoFxApplication extends Application {
 
         loadSettings();
 
-        if (settings.isSplashScreenNeeded()) loadSplashScreen(stage);
+        if (settingsService.isSplashScreenNeeded()) loadSplashScreen(stage);
     }
 
     private void loadSettings() {
-        settings.loadLocalSettings();
+        settingsService.loadLocalSettings();
 
-        if (!settings.properties.containsKey("APP_TOKEN") || settings.properties.getProperty("APP_TOKEN").isEmpty()) {
+        if (!settingsService.properties.containsKey("APP_TOKEN") || settingsService.properties.getProperty("APP_TOKEN").isEmpty()) {
             Stage stage = new Stage();
             try {
                 loadYandexScreen(stage);

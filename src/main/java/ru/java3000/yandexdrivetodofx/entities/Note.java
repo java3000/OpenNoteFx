@@ -1,28 +1,51 @@
-package ru.java3000.yandexdrivetodofx;
+package ru.java3000.yandexdrivetodofx.entities;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import ru.java3000.yandexdrivetodofx.services.LocalDateAdapter;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
-
+//@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Note {
 
+    @XmlElement
     private UUID deviceID;
+    @XmlElement
     private UUID notebookID;
+    @XmlElement
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDateTime creationDateTime;
+    @XmlElement
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDateTime sheduledDateTime;
     private long version;
-    private String text;
+    @XmlElement
+    public String text;
+    @XmlElement
     private String caption;
+    @XmlElement
     private String shareLink;
+    @XmlElement
+    private boolean isEncoded;
+    @XmlElement
+    private String encodingHash;
 
     public Note() {
     }
 
-    public Note(UUID deviceID, UUID notebookID, LocalDateTime creationDateTime, long version, String text) {
+    public Note(UUID deviceID, UUID notebookID, LocalDateTime creationDateTime, long version, String text, boolean isEncoded, String encodingHash) {
         this.deviceID = deviceID;
         this.notebookID = notebookID;
         this.creationDateTime = creationDateTime;
         this.version = version;
         this.text = text;
+        this.isEncoded = isEncoded;
+        this.encodingHash = encodingHash;
     }
 
     public UUID getDeviceID() {
@@ -87,5 +110,22 @@ public class Note {
 
     public void setShareLink(String shareLink) {
         this.shareLink = shareLink;
+    }
+
+
+    public boolean isEncoded() {
+        return isEncoded;
+    }
+
+    public void setEncoded(boolean encoded) {
+        isEncoded = encoded;
+    }
+
+    public String getEncodingHash() {
+        return encodingHash;
+    }
+
+    public void setEncodingHash(String encodingHash) {
+        this.encodingHash = encodingHash;
     }
 }

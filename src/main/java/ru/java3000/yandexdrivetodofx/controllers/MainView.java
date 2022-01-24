@@ -1,37 +1,53 @@
-package ru.java3000.yandexdrivetodofx;
+package ru.java3000.yandexdrivetodofx.controllers;
 
+import jakarta.xml.bind.JAXBException;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import ru.java3000.yandexdrivetodofx.YandexDiskToDoFxApplication;
+import ru.java3000.yandexdrivetodofx.entities.Notebook;
+import ru.java3000.yandexdrivetodofx.services.SavingService;
 
+import javax.xml.stream.XMLStreamException;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class MainView {
-    public TreeView mainTreeView;
-    public ContextMenu cmTF;
-    public MenuItem close;
-    public MenuItem about;
-    public TabPane noteTabs;
+
+    @FXML
+    private TreeView mainTreeView;
+    @FXML
+    private ContextMenu cmTF;
+    @FXML
+    private MenuItem close;
+    @FXML
+    private MenuItem about;
+    @FXML
+    private TabPane noteTabs;
 
     public void initialize() {
         TreeItem<Object> root = new TreeItem<>();
         root.setExpanded(true);
         mainTreeView.setRoot(root);
+
+        //todo add from file
     }
 
     public void closeApp() {
         YandexDiskToDoFxApplication.getPrimaryStage().close();
     }
 
-    public void addNotebook() {
+    public void addNotebook() throws XMLStreamException, JAXBException, IOException {
         String notebookName = getUserInput("Новый блокнот", "Введите название блокнота");
 
         Notebook noteBook = new Notebook();
         noteBook.setName(notebookName);
         noteBook.setCreationTime(LocalDateTime.now());
 
-
         mainTreeView.getRoot().getChildren().add(new TreeItem<>(noteBook));
+
+        SavingService.saveNotebooksNotesLocal(noteBook);
     }
 
     private String getUserInput(String caption, String text) {

@@ -1,4 +1,4 @@
-package ru.java3000.yandexdrivetodofx;
+package ru.java3000.yandexdrivetodofx.services;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,21 +10,24 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
 
-public class Settings {
+public class SettingsService {
 
-    private static Settings instance;
-    Properties properties = new Properties();
+    private static SettingsService instance;
+    public Properties properties = new Properties();
 
     private static final String API_DISK_HOST = "cloud-api.yandex.net";
     private static final String API_OAUTH_HOST = "oauth.yandex.ru";
     private static final String API_VERSION = "/v1";
+    private static final String API_PATH = "resources/";
     private static final String API_TYPE = "/disk/";
+    private static final String API_UPLOAD = "/upload?path=%s&overwrite=%s"; //true?false
     private static final String API_SCHEME = "https://";
     private static final String API_MIME_TYPE = "application/json";
     private static final String APP_ID = "692e18fbb968491fa3ae19e091ce5840";
     private static final String APP_OAUTH_URL_QUERY = "/authorize?response_type=token&client_id=";
     private static final String CONFIG_FILENAME = "config.properties";
 
+    private String apiUploadFile = API_SCHEME + API_DISK_HOST + API_VERSION + API_TYPE + API_PATH + API_UPLOAD;
     private String apiFullPath = API_SCHEME + API_DISK_HOST + API_VERSION + API_TYPE;
     private String appOauthFullPath = API_SCHEME + API_OAUTH_HOST + APP_OAUTH_URL_QUERY + APP_ID;
     private String APP_TOKEN = "";
@@ -34,12 +37,12 @@ public class Settings {
     Path currentFolder = Paths.get("").toAbsolutePath();
     Path configFile = Path.of(currentFolder + File.separator + CONFIG_FILENAME);
 
-    private Settings() {
+    private SettingsService() {
     }
 
-    public static Settings getInstance() {
+    public static SettingsService getInstance() {
         if (instance == null) {
-            instance = new Settings();
+            instance = new SettingsService();
         }
         return instance;
     }

@@ -1,4 +1,8 @@
-module ru.java3000.yandexdrivetodofx {
+module ru.java3000.opennotefx {
+    uses ru.java3000.opennotefx.services.RemoteService;
+    provides ru.java3000.opennotefx.services.RemoteService
+            with ru.java3000.opennotefx.services.remotes.BasicService;
+
     requires org.controlsfx.controls;
     requires org.kordamp.ikonli.javafx;
     requires javafx.controls;
@@ -7,13 +11,15 @@ module ru.java3000.yandexdrivetodofx {
     requires jakarta.xml.bind;
     requires jakarta.activation;
 
-    opens ru.java3000.yandexdrivetodofx to javafx.fxml;
-    exports ru.java3000.yandexdrivetodofx;
-    exports ru.java3000.yandexdrivetodofx.services;
-    opens ru.java3000.yandexdrivetodofx.services to javafx.fxml;
-    exports ru.java3000.yandexdrivetodofx.entities;
-    opens ru.java3000.yandexdrivetodofx.entities to javafx.fxml, jakarta.xml.bind;
-    exports ru.java3000.yandexdrivetodofx.controllers;
-    opens ru.java3000.yandexdrivetodofx.controllers to javafx.fxml;
+    opens ru.java3000.opennotefx to javafx.fxml;
+    exports ru.java3000.opennotefx;
+    exports ru.java3000.opennotefx.services;
+    opens ru.java3000.opennotefx.services to javafx.fxml;
+    exports ru.java3000.opennotefx.entities;
+    opens ru.java3000.opennotefx.entities to javafx.fxml, jakarta.xml.bind;
+    exports ru.java3000.opennotefx.controllers;
+    opens ru.java3000.opennotefx.controllers to javafx.fxml;
+    exports ru.java3000.opennotefx.services.remotes;
+    opens ru.java3000.opennotefx.services.remotes to javafx.fxml;
 }
 

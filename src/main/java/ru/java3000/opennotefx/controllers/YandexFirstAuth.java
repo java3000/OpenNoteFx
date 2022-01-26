@@ -1,4 +1,4 @@
-package ru.java3000.yandexdrivetodofx.controllers;
+package ru.java3000.opennotefx.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,8 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import ru.java3000.yandexdrivetodofx.services.SettingsService;
-import ru.java3000.yandexdrivetodofx.YandexDiskToDoFxApplication;
+import ru.java3000.opennotefx.services.SettingsService;
+import ru.java3000.opennotefx.OpenNoteFxApplication;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -39,10 +39,10 @@ public class YandexFirstAuth implements Initializable {
 
                 String ref = url.getRef();
                 if (ref != null) {
-                    settingsService.setappToken(ref.split("&")[0].split("=")[1]);
-                    settingsService.saveLocalSettings();
+                    settingsService.getSettings().setappToken(ref.split("&")[0].split("=")[1]);
+                    //settingsService.getSettings().saveLocalSettings();
 
-                    FXMLLoader fxmlLoader = new FXMLLoader(YandexDiskToDoFxApplication.class.getResource("main_view.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(OpenNoteFxApplication.class.getResource("main_view.fxml"));
                     Scene scene = null;
                     try {
                         scene = new Scene(fxmlLoader.load());
@@ -55,6 +55,6 @@ public class YandexFirstAuth implements Initializable {
             }
         });
 
-        webEngine.load(settingsService.getAppOauthFullPath());
+        webEngine.load(settingsService.getSettings().getAppOauthFullPath());
     }
 }

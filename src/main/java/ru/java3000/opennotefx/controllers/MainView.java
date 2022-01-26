@@ -1,12 +1,12 @@
-package ru.java3000.yandexdrivetodofx.controllers;
+package ru.java3000.opennotefx.controllers;
 
 import jakarta.xml.bind.JAXBException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import ru.java3000.yandexdrivetodofx.YandexDiskToDoFxApplication;
-import ru.java3000.yandexdrivetodofx.entities.Notebook;
-import ru.java3000.yandexdrivetodofx.services.SavingService;
+import ru.java3000.opennotefx.OpenNoteFxApplication;
+import ru.java3000.opennotefx.entities.Notebook;
+import ru.java3000.opennotefx.services.SavingService;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
@@ -35,7 +35,7 @@ public class MainView {
     }
 
     public void closeApp() {
-        YandexDiskToDoFxApplication.getPrimaryStage().close();
+        OpenNoteFxApplication.getPrimaryStage().close();
     }
 
     public void addNotebook() throws XMLStreamException, JAXBException, IOException {

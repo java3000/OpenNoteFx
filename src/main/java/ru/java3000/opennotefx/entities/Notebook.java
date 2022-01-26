@@ -1,13 +1,11 @@
-package ru.java3000.yandexdrivetodofx.entities;
+package ru.java3000.opennotefx.entities;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import ru.java3000.yandexdrivetodofx.entities.Note;
-import jakarta.xml.bind.*;
-import ru.java3000.yandexdrivetodofx.services.LocalDateAdapter;
+import ru.java3000.opennotefx.services.LocalDateAdapter;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,6 +21,8 @@ public class Notebook {
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDateTime creationTime;
     @XmlElement
+    private int order;
+    @XmlElement
     private List<Note> notes;
     @XmlElement
     private String shareLink;
@@ -30,12 +30,13 @@ public class Notebook {
     public Notebook() {
     }
 
-    public Notebook(String name, String description, LocalDateTime creationTime, List<Note> notes, String shareLink) {
+    public Notebook(String name, String description, LocalDateTime creationTime, List<Note> notes, String shareLink, int order) {
         this.name = name;
         this.description = description;
         this.creationTime = creationTime;
         this.notes = notes;
         this.shareLink = shareLink;
+        this.order = order;
     }
 
     public String getName() {
@@ -76,6 +77,14 @@ public class Notebook {
 
     public void setShareLink(String shareLink) {
         this.shareLink = shareLink;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 
     @Override

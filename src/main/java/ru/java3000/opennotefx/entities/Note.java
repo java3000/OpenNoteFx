@@ -1,11 +1,10 @@
-package ru.java3000.yandexdrivetodofx.entities;
+package ru.java3000.opennotefx.entities;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import ru.java3000.yandexdrivetodofx.services.LocalDateAdapter;
+import ru.java3000.opennotefx.services.LocalDateAdapter;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -23,7 +22,10 @@ public class Note {
     @XmlElement
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDateTime sheduledDateTime;
+    @XmlElement
     private long version;
+    @XmlElement
+    private int order;
     @XmlElement
     public String text;
     @XmlElement
@@ -38,7 +40,7 @@ public class Note {
     public Note() {
     }
 
-    public Note(UUID deviceID, UUID notebookID, LocalDateTime creationDateTime, long version, String text, boolean isEncoded, String encodingHash) {
+    public Note(UUID deviceID, UUID notebookID, LocalDateTime creationDateTime, long version, String text, boolean isEncoded, String encodingHash, int order) {
         this.deviceID = deviceID;
         this.notebookID = notebookID;
         this.creationDateTime = creationDateTime;
@@ -46,6 +48,7 @@ public class Note {
         this.text = text;
         this.isEncoded = isEncoded;
         this.encodingHash = encodingHash;
+        this.order = order;
     }
 
     public UUID getDeviceID() {
@@ -112,7 +115,6 @@ public class Note {
         this.shareLink = shareLink;
     }
 
-
     public boolean isEncoded() {
         return isEncoded;
     }
@@ -127,5 +129,13 @@ public class Note {
 
     public void setEncodingHash(String encodingHash) {
         this.encodingHash = encodingHash;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 }

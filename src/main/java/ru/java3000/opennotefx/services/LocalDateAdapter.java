@@ -1,4 +1,4 @@
-package ru.java3000.yandexdrivetodofx.services;
+package ru.java3000.opennotefx.services;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 

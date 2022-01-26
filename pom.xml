@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.example</groupId>
-    <artifactId>YandexDriveToDoFx</artifactId>
+    <groupId>ru.java3000</groupId>
+    <artifactId>OpenNoteFx</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>YandexDriveToDoFx</name>
+    <name>OpenNoteFx</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -128,7 +128,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.yandexdrivetodofx/ru.java3000.yandexdrivetodofx.YandexDiskToDoFxApplication
+                            <mainClass>ru.java3000.opennotefx/ru.java3000.opennotefx.OpenNoteFxApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

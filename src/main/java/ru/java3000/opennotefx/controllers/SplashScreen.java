@@ -1,4 +1,4 @@
-package ru.java3000.yandexdrivetodofx.controllers;
+package ru.java3000.opennotefx.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

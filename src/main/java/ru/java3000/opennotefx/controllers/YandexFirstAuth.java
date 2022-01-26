@@ -40,6 +40,7 @@ public class YandexFirstAuth implements Initializable {
                 String ref = url.getRef();
                 if (ref != null) {
                     settingsService.getSettings().setappToken(ref.split("&")[0].split("=")[1]);
+                    //todo
                     //settingsService.getSettings().saveLocalSettings();
 
                     FXMLLoader fxmlLoader = new FXMLLoader(OpenNoteFxApplication.class.getResource("main_view.fxml"));

@@ -1,6 +1,7 @@
 package ru.java3000.opennotefx.services;
 
 import ru.java3000.opennotefx.entities.Notebook;
+import ru.java3000.opennotefx.entities.Settings;
 
 import java.util.List;
 import java.util.ServiceLoader;
@@ -10,17 +11,14 @@ public interface RemoteService {
     void login();
     void logout();
     void register();
-    boolean uploadData();
-    boolean downloadData();
-    boolean uploadSettings();
-    boolean downloadSettings();
-    void shareNotebook(Notebook notebook);
-    void unshareNotebook(Notebook notebook);
-    boolean deleteNotebook(Notebook notebook);
-    boolean wipeAllData();
-    boolean deleteSettings();
+    boolean upload(String path, Settings.DownloadDataType type);
+    boolean download(String path, Settings.DownloadDataType type);
+    String shareNotebook(Notebook notebook);
+    boolean unshareNotebook(Notebook notebook);
+    boolean deleteNotebook(Notebook notebook, boolean permanently);
+    boolean restoreNotebook(Notebook notebook);
     boolean createAppFolder();
-    boolean deleteAppFolder();
+    boolean deleteAppFolder(boolean permanently);
     boolean encryptData();
     boolean decryptData();
 

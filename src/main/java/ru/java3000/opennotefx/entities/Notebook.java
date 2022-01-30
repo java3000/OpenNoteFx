@@ -14,7 +14,7 @@ import java.util.List;
 public class Notebook {
 
     @XmlElement
-    public String name;
+    private String name;
     @XmlElement
     private String description;
     @XmlElement
@@ -26,17 +26,27 @@ public class Notebook {
     private List<Note> notes;
     @XmlElement
     private String shareLink;
+    @XmlElement
+    private String localLocation;
+    @XmlElement
+    private String remoteLocation;
+    @XmlElement
+    private boolean isInTrash;
 
     public Notebook() {
     }
 
-    public Notebook(String name, String description, LocalDateTime creationTime, List<Note> notes, String shareLink, int order) {
+    public Notebook(String name, String description, LocalDateTime creationTime, int order, List<Note> notes,
+                    String shareLink, String localLocation, String remoteLocation) {
         this.name = name;
         this.description = description;
-        this.creationTime = creationTime;
+        this.creationTime = LocalDateTime.now();
+        this.order = order;
         this.notes = notes;
         this.shareLink = shareLink;
-        this.order = order;
+        this.localLocation = localLocation;
+        this.remoteLocation = remoteLocation;
+        this.isInTrash = false;
     }
 
     public String getName() {
@@ -85,6 +95,30 @@ public class Notebook {
 
     public void setOrder(int order) {
         this.order = order;
+    }
+
+    public String getLocalLocation() {
+        return localLocation;
+    }
+
+    public void setLocalLocation(String localLocation) {
+        this.localLocation = localLocation;
+    }
+
+    public String getRemoteLocation() {
+        return remoteLocation;
+    }
+
+    public void setRemoteLocation(String remoteLocation) {
+        this.remoteLocation = remoteLocation;
+    }
+
+    public boolean isInTrash() {
+        return isInTrash;
+    }
+
+    public void setInTrash(boolean inTrash) {
+        isInTrash = inTrash;
     }
 
     @Override

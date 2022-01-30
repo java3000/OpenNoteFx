@@ -1,6 +1,7 @@
 package ru.java3000.opennotefx.services.remotes;
 
 import ru.java3000.opennotefx.entities.Notebook;
+import ru.java3000.opennotefx.entities.Settings;
 import ru.java3000.opennotefx.services.RemoteService;
 
 public class BasicService implements RemoteService {
@@ -20,47 +21,32 @@ public class BasicService implements RemoteService {
     }
 
     @Override
-    public boolean uploadData() {
+    public boolean upload(String path, Settings.DownloadDataType type) {
         return false;
     }
 
     @Override
-    public boolean downloadData() {
+    public boolean download(String path, Settings.DownloadDataType type) {
         return false;
     }
 
     @Override
-    public boolean uploadSettings() {
+    public String shareNotebook(Notebook notebook) {
+        return "";
+    }
+
+    @Override
+    public boolean unshareNotebook(Notebook notebook) {
         return false;
     }
 
     @Override
-    public boolean downloadSettings() {
+    public boolean deleteNotebook(Notebook notebook, boolean permanently) {
         return false;
     }
 
     @Override
-    public void shareNotebook(Notebook notebook) {
-
-    }
-
-    @Override
-    public void unshareNotebook(Notebook notebook) {
-
-    }
-
-    @Override
-    public boolean deleteNotebook(Notebook notebook) {
-        return false;
-    }
-
-    @Override
-    public boolean wipeAllData() {
-        return false;
-    }
-
-    @Override
-    public boolean deleteSettings() {
+    public boolean restoreNotebook(Notebook notebook) {
         return false;
     }
 
@@ -70,7 +56,7 @@ public class BasicService implements RemoteService {
     }
 
     @Override
-    public boolean deleteAppFolder() {
+    public boolean deleteAppFolder(boolean permanently) {
         return false;
     }
 

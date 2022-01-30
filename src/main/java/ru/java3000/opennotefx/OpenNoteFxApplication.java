@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import ru.java3000.opennotefx.services.SettingsService;
+import ru.java3000.opennotefx.entities.Settings;
 
 import java.io.IOException;
 import java.lang.module.Configuration;
@@ -18,7 +18,7 @@ import java.util.List;
 public final class OpenNoteFxApplication extends Application {
 
     public static final String TITLE = "Yandex Disk ToDo!";
-    SettingsService settingsService = SettingsService.getInstance();
+    Settings settings = Settings.getInstance();
     private static Stage primaryStage;
 
     public static Stage getPrimaryStage() {
@@ -26,22 +26,19 @@ public final class OpenNoteFxApplication extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, ClassNotFoundException {
 
-        synchronized (this) {
-            primaryStage = stage;
-        }
-
+        primaryStage = stage;
         loadSettings();
 
-        if (settingsService.getSettings().isSplashScreenNeeded()) loadSplashScreen(stage);
+        if (Settings.getInstance().isSplashScreenNeeded()) loadSplashScreen(stage);
     }
 
     private void loadSettings() {
         //todo this is in save service now
         //settingsService.getSettings().
 
-        if (settingsService.getSettings().getappToken().isEmpty()) {
+        if (Settings.getInstance().getAppToken().isEmpty()) {
             Stage stage = new Stage();
             try {
                 loadYandexScreen(stage);
@@ -70,7 +67,7 @@ public final class OpenNoteFxApplication extends Application {
         launch();
     }
 
-    public void loadSplashScreen(Stage stage) throws IOException {
+    public void loadSplashScreen(Stage stage) throws IOException, ClassNotFoundException {
         FXMLLoader fxmlLoader = new FXMLLoader(OpenNoteFxApplication.class.getResource("splash-screen-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle(TITLE);
@@ -79,7 +76,9 @@ public final class OpenNoteFxApplication extends Application {
     }
 
     public void loadYandexScreen(Stage stage) throws IOException {
+
         FXMLLoader fxmlLoader = new FXMLLoader(OpenNoteFxApplication.class.getResource("yandex_first_authorization.fxml"));
+        System.out.println(fxmlLoader.getLocation());
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle(TITLE);
         stage.setScene(scene);

@@ -104,8 +104,8 @@ public enum ServiceType {
     BEECLOUD("https://beecloud.beeline.ru/",""),
     SELECTEL("https://selectel.ru/lab/file-storage/","");
 
-    private String url;
-    private String description;
+    private final String url;
+    private final String description;
 
     ServiceType(String url, String description) {
         this.url = url;

@@ -7,8 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import ru.java3000.opennotefx.services.SettingsService;
 import ru.java3000.opennotefx.OpenNoteFxApplication;
+import ru.java3000.opennotefx.entities.Settings;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -21,7 +21,7 @@ public class YandexFirstAuth implements Initializable {
     WebView browser = new WebView();
 
     private WebEngine webEngine;
-    private SettingsService settingsService = SettingsService.getInstance();
+    private Settings settings = Settings.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -39,7 +39,7 @@ public class YandexFirstAuth implements Initializable {
 
                 String ref = url.getRef();
                 if (ref != null) {
-                    settingsService.getSettings().setappToken(ref.split("&")[0].split("=")[1]);
+                    settings.setAppToken(ref.split("&")[0].split("=")[1]);
                     //todo
                     //settingsService.getSettings().saveLocalSettings();
 
@@ -56,6 +56,6 @@ public class YandexFirstAuth implements Initializable {
             }
         });
 
-        webEngine.load(settingsService.getSettings().getAppOauthFullPath());
+        webEngine.load(settings.getAppOauthFullPath());
     }
 }

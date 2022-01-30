@@ -5,14 +5,11 @@ import com.yandex.disk.rest.exceptions.CancelledUploadingException;
 import com.yandex.disk.rest.exceptions.ServerException;
 import com.yandex.disk.rest.exceptions.ServerIOException;
 import com.yandex.disk.rest.exceptions.WrongMethodException;
-import com.yandex.disk.rest.exceptions.http.NotImplementedException;
-import com.yandex.disk.rest.json.ApiError;
 import com.yandex.disk.rest.json.Link;
 import com.yandex.disk.rest.json.Resource;
 import ru.java3000.opennotefx.entities.Notebook;
 import ru.java3000.opennotefx.entities.Settings;
 import ru.java3000.opennotefx.services.RemoteService;
-import ru.java3000.opennotefx.services.SettingsService;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,8 +24,8 @@ public class YandexService implements RemoteService {
     public YandexService() {
 
         //todo may be bad logic.
-        String user = SettingsService.getInstance().getSettings().getAPP_LOGIN();
-        String token = SettingsService.getInstance().getSettings().getappToken();
+        String user = Settings.getInstance().getAppLogin();
+        String token = Settings.getInstance().getAppToken();
 
         if (user.isEmpty() || token.isEmpty()) throw new IllegalArgumentException("user or token is empty");
 
@@ -53,11 +50,13 @@ public class YandexService implements RemoteService {
         File local = switch (type) {
             case NOTEBOOK -> new File(Settings.DownloadDataType.NOTEBOOK.getLocalFolder() + File.separator + path);
             case SETTINGS -> new File(Settings.DownloadDataType.SETTINGS.getLocalFolder() + File.separator + path);
+            default -> throw new IllegalStateException("Unexpected value: " + type);
         };
 
         String serverPath = switch (type) {
             case NOTEBOOK -> Settings.DownloadDataType.NOTEBOOK.getRemoteFolder();
             case SETTINGS -> Settings.DownloadDataType.SETTINGS.getRemoteFolder();
+            default -> throw new IllegalStateException("Unexpected value: " + type);
         };
 
         Link link = null;
@@ -102,6 +101,7 @@ public class YandexService implements RemoteService {
         File local = switch (type) {
             case NOTEBOOK -> new File(Settings.DownloadDataType.valueOf("NOTEBOOK") + File.separator + path);
             case SETTINGS -> new File(Settings.DownloadDataType.valueOf("SETTINGS") + File.separator + path);
+            default -> throw new IllegalStateException("Unexpected value: " + type);
         };
 
         try {
@@ -204,7 +204,7 @@ public class YandexService implements RemoteService {
     @Override
     public boolean createAppFolder() {
 
-        String path = "/" + SettingsService.getInstance().getSettings().getDataFolderName();
+        String path = "/" + Settings.getInstance().getDataFolderName();
         try {
             client.makeFolder(path);
             return true;
@@ -216,7 +216,7 @@ public class YandexService implements RemoteService {
 
     @Override
     public boolean deleteAppFolder(boolean permanently) {
-        String path = "/" + SettingsService.getInstance().getSettings().getDataFolderName();
+        String path = "/" + Settings.getInstance().getDataFolderName();
         try {
             client.delete(path, permanently);
             return true;

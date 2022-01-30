@@ -22,17 +22,15 @@ public final class SavingService {
     }
 
     public static void saveSettingsLocal() throws JAXBException {
-        String fileFullPathString = SettingsService.getInstance().getSettings().getConfigFile().toString();
-
-        JAXBContext context = JAXBContext.newInstance(Notebook.class);
+        JAXBContext context = JAXBContext.newInstance(Settings.class);
         var m = context.createMarshaller();
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        m.marshal(SettingsService.getInstance(), new File(fileFullPathString));
+        m.marshal(Settings.getInstance(), new File(Settings.getInstance().getSettingsPathString()));
     }
 
     //todo think about array of notebooks
     public static void saveNotebooksNotesLocal(Notebook notebook) throws JAXBException, FileNotFoundException {
-        String fileFullPathString = SettingsService.getInstance().getSettings().getDataFolder() + notebook.getName() + ".xml";
+        String fileFullPathString = Settings.getInstance().getDataFolderName() + File.separator + notebook.getName() + ".xml";
 
         JAXBContext context = JAXBContext.newInstance(Notebook.class);
         var m = context.createMarshaller();
@@ -61,16 +59,14 @@ public final class SavingService {
     }
 
     public static Settings loadSettingsLocal() throws JAXBException {
-        Path fileFullPathString = SettingsService.getInstance().getSettings().getConfigFile();
-
         JAXBContext context = JAXBContext.newInstance(Settings.class);
         var m = context.createUnmarshaller();
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        return (Settings) m.unmarshal(new File(fileFullPathString.toString()));
+        return (Settings) m.unmarshal(new File(Settings.getInstance().getSettingsPathString()));
     }
 
     public static List<Notebook> loadDataLocal() {
-        Path fileFullPathString = SettingsService.getInstance().getSettings().getDataFolder();
+        Path fileFullPathString = Path.of(Settings.getInstance().getDataFolderName());
         List<Notebook> notebooks = new ArrayList<>();
 
         try (var fileStream = Files.list(fileFullPathString)) {

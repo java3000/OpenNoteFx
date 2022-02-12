@@ -9,11 +9,11 @@
           <contextMenu>
               <ContextMenu fx:id="cmTF">
                   <items>
-                      <MenuItem text="Add Notebook"  onAction="#addNotebook" />
-                      <MenuItem text="Add Note" onAction="#addNote" />
-                      <MenuItem text="Remove Notebook" onAction="#removeNotebook" />
-                      <MenuItem text="Remove Note" onAction="#removeNote" />
-                      <MenuItem text="Edit" onAction="#editNote" />
+                      <MenuItem text="%main_view.tree.menu.add.notebook"  onAction="#addNotebook" />
+                      <MenuItem text="%main_view.tree.menu.add.note" onAction="#addNote" />
+                      <MenuItem text="%main_view.tree.menu.remove.notebook" onAction="#removeNotebook" />
+                      <MenuItem text="%main_view.tree.menu.remove.note" onAction="#removeNote" />
+                      <MenuItem text="%main_view.tree.menu.edit" onAction="#editNote" />
                   </items>
               </ContextMenu>
           </contextMenu>
@@ -22,14 +22,22 @@
    <top>
       <MenuBar fx:id="systemMenu" BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="%main_view.menubar.menu.file">
             <items>
-              <MenuItem fx:id="close" mnemonicParsing="false" onAction="#closeApp" text="Close" />
+              <MenuItem fx:id="createNotebook" mnemonicParsing="false" onAction="#addNotebook" text="%main_view.menubar.menu.file.item.createnotebook" />
+              <MenuItem fx:id="createNote" mnemonicParsing="false" onAction="#addNote" text="%main_view.menubar.menu.file.item.createnote" />
+              <MenuItem fx:id="close" mnemonicParsing="false" onAction="#closeApp" text="%main_view.menubar.menu.file.item.close" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+            <Menu mnemonicParsing="false" text="%main_view.menubar.menu.settings">
+                <items>
+                    <MenuItem fx:id="accounts" mnemonicParsing="false" text="%main_view.menubar.menu.settings.accounts" />
+                    <MenuItem fx:id="parameters" mnemonicParsing="false" text="%main_view.menubar.menu.settings.parameters" />
+                </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="%main_view.menubar.menu.help">
             <items>
-              <MenuItem fx:id="about" mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="about" mnemonicParsing="false" onAction="#openAboutDialog" text="%main_view.menubar.menu.help.item.about" />
             </items>
           </Menu>
         </menus>

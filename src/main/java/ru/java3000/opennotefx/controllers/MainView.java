@@ -78,4 +78,8 @@ public class MainView {
     public void editNote(ActionEvent actionEvent) {
 
     }
+
+    public void openAboutDialog(ActionEvent actionEvent) {
+
+    }
 }

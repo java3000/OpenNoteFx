@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.java3000.note.controllers.Settings_viewController">
+    <children>
+        <CheckBox fx:id="showSplashScreenOption" layoutX="20.0" layoutY="24.0" mnemonicParsing="false" text="%settings.show.splashscreen.option" />
+        <TableView fx:id="accountsTable" editable="true" layoutX="18.0" layoutY="141.0" prefHeight="200.0" prefWidth="564.0">
+            <columns>
+                <TableColumn fx:id="serviceColumn" editable="false" prefWidth="230.0" text="%settings.service.label" />
+                <TableColumn fx:id="loginColumn" prefWidth="145.0" text="%settings.column.login" />
+                <TableColumn fx:id="passwordColumn" prefWidth="154.0" text="%settings.column.password" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+        <Label layoutX="20.0" layoutY="113.0" text="%settings.cloud.account.label" />
+        <Button fx:id="saveSettingsButton" layoutX="514.0" layoutY="353.0" mnemonicParsing="false" text="%settings.button.canсel" />
+        <Button fx:id="cancelSettingsButton" layoutX="404.0" layoutY="353.0" mnemonicParsing="false" text="%settings.button.save" />
+    </children>
+</AnchorPane>

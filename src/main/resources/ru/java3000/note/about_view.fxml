@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.java3000.note.controllers.About_viewController">
+    <children>
+        <Button fx:id="aboutOk" layoutX="178.0" layoutY="153.0" mnemonicParsing="false" onAction="#closeView" text="%about_view.button.ok" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="169.0" AnchorPane.rightAnchor="169.0" />
+        <Hyperlink fx:id="aboutLink" layoutX="164.0" layoutY="100.0" text="%about_view.link.text" AnchorPane.bottomAnchor="50.0" AnchorPane.topAnchor="110.0" />
+        <TextField fx:id="aboutText" editable="false" layoutX="14.0" layoutY="14.0" prefHeight="83.0" prefWidth="373.0" text="%about_view.textabout" AnchorPane.bottomAnchor="103.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="14.0" />
+    </children>
+</AnchorPane>

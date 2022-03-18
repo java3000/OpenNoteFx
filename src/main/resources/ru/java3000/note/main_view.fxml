@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.java3000.note.controllers.Main_viewController">
+    <left>
+        <TreeView fx:id="mainTreeView" prefHeight="200.0" prefWidth="200.0" showRoot="false" BorderPane.alignment="CENTER">
+            <contextMenu>
+                <ContextMenu fx:id="cmTF">
+                    <items>
+                        <MenuItem text="%main_view.tree.menu.add.notebook"  onAction="#addNotebook" />
+                        <MenuItem text="%main_view.tree.menu.add.note" onAction="#addNote" />
+                        <MenuItem text="%main_view.tree.menu.remove.notebook" onAction="#removeNotebook" />
+                        <MenuItem text="%main_view.tree.menu.remove.note" onAction="#removeNote" />
+                        <MenuItem text="%main_view.tree.menu.edit" onAction="#editNote" />
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+        </TreeView>
+    </left>
+    <top>
+        <MenuBar fx:id="systemMenu" BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="%main_view.menubar.menu.file">
+                    <items>
+                        <MenuItem fx:id="createNotebook" mnemonicParsing="false" onAction="#addNotebook" text="%main_view.menubar.menu.file.item.createnotebook" />
+                        <MenuItem fx:id="createNote" mnemonicParsing="false" onAction="#addNote" text="%main_view.menubar.menu.file.item.createnote" />
+                        <MenuItem fx:id="close" mnemonicParsing="false" onAction="#closeApp" text="%main_view.menubar.menu.file.item.close" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%main_view.menubar.menu.settings">
+                    <items>
+                        <MenuItem fx:id="accounts" mnemonicParsing="false" text="%main_view.menubar.menu.settings.accounts" onAction="#openAccountsDialog" />
+                        <MenuItem fx:id="parameters" mnemonicParsing="false" text="%main_view.menubar.menu.settings.parameters" onAction="#openParametersDialog" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%main_view.menubar.menu.help">
+                    <items>
+                        <MenuItem fx:id="about" mnemonicParsing="false" onAction="#openAboutDialog" text="%main_view.menubar.menu.help.item.about" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <center>
+        <TabPane fx:id="noteTabs" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+    </center>
+</BorderPane>

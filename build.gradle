@@ -3,6 +3,7 @@ plugins {
   id 'application'
   id 'org.openjfx.javafxplugin' version '0.0.10'
   id 'org.beryx.jlink' version '2.24.1'
+  id 'com.github.johnrengelman.shadow' version '6.1.0'
 }
 
 group 'ru.java3000'
@@ -36,6 +37,7 @@ javafx {
 dependencies {
   implementation('org.controlsfx:controlsfx:11.1.0')
   implementation('org.kordamp.ikonli:ikonli-javafx:12.2.0')
+  implementation('org.kordamp.ikonli:ikonli-themify-pack:12.3.1')
 
   implementation('jakarta.xml.bind:jakarta.xml.bind-api:3.0.1')
   implementation('com.sun.xml.bind:jaxb-impl:3.0.1')
@@ -57,4 +59,8 @@ jlink {
 
 jlinkZip {
   group = 'distribution'
+}
+
+shadowJar {
+  mergeServiceFiles()
 }

@@ -9,11 +9,11 @@
             <contextMenu>
                 <ContextMenu fx:id="cmTF">
                     <items>
-                        <MenuItem text="%main_view.tree.menu.add.notebook"  onAction="#addNotebook" />
-                        <MenuItem text="%main_view.tree.menu.add.note" onAction="#addNote" />
-                        <MenuItem text="%main_view.tree.menu.remove.notebook" onAction="#removeNotebook" />
-                        <MenuItem text="%main_view.tree.menu.remove.note" onAction="#removeNote" />
-                        <MenuItem text="%main_view.tree.menu.edit" onAction="#editNote" />
+                        <MenuItem id="addbook" text="%main_view.tree.menu.add.notebook"  onAction="#addNotebook" />
+                        <MenuItem id="addnote" text="%main_view.tree.menu.add.note" onAction="#addNote" />
+                        <MenuItem id="removebook" text="%main_view.tree.menu.remove.notebook" onAction="#removeNotebook" />
+                        <!--<MenuItem text="%main_view.tree.menu.remove.note" onAction="#removeNote" />
+                        <MenuItem text="%main_view.tree.menu.edit" onAction="#editNote" />-->
                     </items>
                 </ContextMenu>
             </contextMenu>
@@ -22,10 +22,10 @@
     <top>
         <MenuBar fx:id="systemMenu" BorderPane.alignment="CENTER">
             <menus>
-                <Menu mnemonicParsing="false" text="%main_view.menubar.menu.file">
+                <Menu fx:id="uppermenu" mnemonicParsing="false" text="%main_view.menubar.menu.file">
                     <items>
                         <MenuItem fx:id="createNotebook" mnemonicParsing="false" onAction="#addNotebook" text="%main_view.menubar.menu.file.item.createnotebook" />
-                        <MenuItem fx:id="createNote" mnemonicParsing="false" onAction="#addNote" text="%main_view.menubar.menu.file.item.createnote" />
+                        <MenuItem disable="ru.java3000.note.controllers.Main_viewController.empty"  fx:id="createNote" mnemonicParsing="false" onAction="#addNote" text="%main_view.menubar.menu.file.item.createnote" />
                         <MenuItem fx:id="close" mnemonicParsing="false" onAction="#closeApp" text="%main_view.menubar.menu.file.item.close" />
                     </items>
                 </Menu>

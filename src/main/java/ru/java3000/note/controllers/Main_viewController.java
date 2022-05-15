@@ -1,15 +1,15 @@
 package ru.java3000.note.controllers;
 
-import jakarta.xml.bind.JAXBException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.util.Callback;
+import org.kordamp.ikonli.javafx.FontIcon;
 import ru.java3000.note.OpenNoteFx;
+import ru.java3000.note.entities.Note;
 import ru.java3000.note.entities.Notebook;
-import ru.java3000.note.services.SavingService;
+import ru.java3000.note.helpers.TextFieldTreeCellImpl;
 
-import javax.xml.stream.XMLStreamException;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -25,66 +25,29 @@ public class Main_viewController {
     private MenuItem about;
     @FXML
     private TabPane noteTabs;
+    @FXML
+    private MenuBar systemMenu;
+
+    public  boolean empty = true;
 
     public void initialize() {
         TreeItem<Object> root = new TreeItem<>();
         root.setExpanded(true);
         mainTreeView.setRoot(root);
+        mainTreeView.setEditable(true);
+        mainTreeView.setCellFactory((Callback<TreeView<Object>, TreeCell<Object>>) p -> new TextFieldTreeCellImpl());
 
-        //todo add from file
+        //todo place somethere
+        /*if(mainTreeView.getRoot().getChildren().isEmpty()) {
+            cmTF.getItems().stream().filter(x -> x.getId().matches("addnote")).findFirst().get().setDisable(true);
+            cmTF.getItems().stream().filter(x -> x.getId().matches("removebook")).findFirst().get().setDisable(true);
+            systemMenu.getMenus().stream().filter(x -> x.getId().matches("uppermenu")).findFirst().get()
+                    .getItems().stream().filter(x -> x.getId().matches("createNote")).findFirst().get().setDisable(true);
+        }*/
     }
 
     public void closeApp() {
         OpenNoteFx.getPrimaryStage().close();
-    }
-
-    public void addNotebook() throws XMLStreamException, JAXBException, IOException {
-        String notebookName = getUserInput("Новый блокнот", "Введите название блокнота");
-
-        Notebook noteBook = new Notebook();
-        noteBook.setName(notebookName);
-        noteBook.setCreationTime(LocalDateTime.now());
-
-        mainTreeView.getRoot().getChildren().add(new TreeItem<>(noteBook));
-
-        SavingService.saveNotebooksNotesLocal(noteBook);
-    }
-
-    //todo create several inputs and place them to helper class
-    private String getUserInput(String caption, String text) {
-        Dialog<String> notebookDialog = new TextInputDialog("");
-        notebookDialog.setTitle(caption);
-        notebookDialog.setHeaderText(text);
-
-        Optional<String> entered = notebookDialog.showAndWait();
-        String result = "";
-
-        if (entered.isPresent()) result = entered.get();
-
-        return result;
-    }
-
-    public void addNote(ActionEvent actionEvent) {
-
-    }
-
-    public void removeNotebook(ActionEvent actionEvent) {
-        //todo replace with input from helper class
-        Dialog noteRemoveDialog = new ChoiceDialog("");
-        noteRemoveDialog.setTitle("Удалить блокнот");
-        noteRemoveDialog.setHeaderText("Вы действительно хотите удалить блокнот " + ((TreeItem)actionEvent.getSource()).getValue().toString());
-        Optional<String> entered = noteRemoveDialog.showAndWait();
-        String result = "";
-
-        if (entered.isPresent()) result = entered.get();
-    }
-
-    public void removeNote(ActionEvent actionEvent) {
-
-    }
-
-    public void editNote(ActionEvent actionEvent) {
-
     }
 
     public void openAboutDialog(ActionEvent actionEvent) {
@@ -97,5 +60,48 @@ public class Main_viewController {
 
     public void openParametersDialog(ActionEvent actionEvent) {
 
+    }
+
+    public void addNotebook() {
+        String notebookName = "New Notebook"; //todo i18ize
+
+        Notebook noteBook = new Notebook();
+        noteBook.setName(notebookName);
+        noteBook.setCreationTime(LocalDateTime.now());
+
+        mainTreeView.getRoot().getChildren().add(new TreeItem<>(noteBook, new FontIcon("ti-agenda:24")));
+
+        //todo place somethere
+        /*if(!mainTreeView.getRoot().getChildren().isEmpty()) {
+            cmTF.getItems().stream().filter(x -> x.getId().matches("addnote")).findFirst().get().setDisable(false);
+            cmTF.getItems().stream().filter(x -> x.getId().matches("removebook")).findFirst().get().setDisable(false);
+            systemMenu.getMenus().stream().filter(x -> x.getId().matches("uppermenu")).findFirst().get()
+                    .getItems().stream().filter(x -> x.getId().matches("createNote")).findFirst().get().setDisable(false);
+        }*/
+    }
+
+    public void addNote(ActionEvent actionEvent) {
+        String noteName = "New Note";
+
+        Note note = new Note();
+        note.setCaption(noteName);
+        note.setCreationDateTime(LocalDateTime.now());
+
+        //TreeItem source = (TreeItem)actionEvent.getSource();
+        //source.getChildren().add(new TreeItem<>(note, new FontIcon("ti-notepad:24")));
+        //source.getChildren().add(new TreeItem<>(note, new FontIcon("ti-receipt:24")));
+
+    }
+
+    public void removeNotebook(ActionEvent actionEvent) {
+        //todo replace with input from helper class
+        Dialog noteRemoveDialog = new ChoiceDialog("");
+        noteRemoveDialog.setTitle("Удалить блокнот");
+        noteRemoveDialog.setHeaderText("Вы действительно хотите удалить блокнот " + ((TreeItem)actionEvent.getSource()).getValue().toString());
+        Optional<String> entered = noteRemoveDialog.showAndWait();
+        String result = "";
+
+        if (entered.isPresent()) result = entered.get();
+        //todo
     }
 }

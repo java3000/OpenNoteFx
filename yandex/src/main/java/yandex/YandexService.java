@@ -7,9 +7,9 @@ import com.yandex.disk.rest.exceptions.ServerIOException;
 import com.yandex.disk.rest.exceptions.WrongMethodException;
 import com.yandex.disk.rest.json.Link;
 import com.yandex.disk.rest.json.Resource;
-import ru.java3000.opennotefx.entities.Notebook;
-import ru.java3000.opennotefx.entities.Settings;
-import ru.java3000.opennotefx.services.RemoteService;
+import ru.java3000.note.entities.Notebook;
+import ru.java3000.note.entities.Settings;
+import ru.java3000.note.services.RemoteService;
 
 import java.io.File;
 import java.io.IOException;
@@ -193,7 +193,7 @@ public class YandexService implements RemoteService {
             Link link = client.restoreFromTrash("/" + notebook.getName(), null, null);
             notebook.setRemoteLocation(link.getHref());
             return true;
-        } catch (ServerIOException | IOException ex) {
+        } catch (IOException ex) {
             ex.printStackTrace();
             return false;
         }

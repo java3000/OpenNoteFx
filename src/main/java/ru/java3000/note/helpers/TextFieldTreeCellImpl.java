@@ -1,10 +1,8 @@
 package ru.java3000.note.helpers;
 
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 public final class TextFieldTreeCellImpl extends TreeCell<Object> {
     private TextField textField;
@@ -13,11 +11,9 @@ public final class TextFieldTreeCellImpl extends TreeCell<Object> {
     public TextFieldTreeCellImpl() {
         MenuItem addMenuItem = new MenuItem("Add Note");
         addMenu.getItems().add(addMenuItem);
-        addMenuItem.setOnAction(new EventHandler() {
-            public void handle(Event t) {
-                TreeItem newEmployee = new TreeItem<String>("New Employee");
-                getTreeItem().getChildren().add(newEmployee);
-            }
+        addMenuItem.setOnAction((EventHandler) t -> {
+            TreeItem newEmployee = new TreeItem<String>("New Employee");
+            getTreeItem().getChildren().add(newEmployee);
         });
     }
 
@@ -69,15 +65,11 @@ public final class TextFieldTreeCellImpl extends TreeCell<Object> {
 
     private void createTextField() {
         textField = new TextField(getString());
-        textField.setOnKeyReleased(new EventHandler<KeyEvent>() {
-
-            @Override
-            public void handle(KeyEvent t) {
-                if (t.getCode() == KeyCode.ENTER) {
-                    commitEdit(textField.getText());
-                } else if (t.getCode() == KeyCode.ESCAPE) {
-                    cancelEdit();
-                }
+        textField.setOnKeyReleased(t -> {
+            if (t.getCode() == KeyCode.ENTER) {
+                commitEdit(textField.getText());
+            } else if (t.getCode() == KeyCode.ESCAPE) {
+                cancelEdit();
             }
         });
 

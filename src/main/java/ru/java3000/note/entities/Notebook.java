@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Notebook {
+public class Notebook implements NoteTreeItem {
 
     @XmlElement
     private String name;
@@ -33,6 +33,8 @@ public class Notebook {
     @XmlElement
     private boolean isInTrash;
 
+    private NoteTreeItemType type = NoteTreeItemType.NOTEBOOK;
+
     public Notebook() {
     }
 
@@ -49,10 +51,12 @@ public class Notebook {
         this.isInTrash = false;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
@@ -119,6 +123,10 @@ public class Notebook {
 
     public void setInTrash(boolean inTrash) {
         isInTrash = inTrash;
+    }
+
+    public NoteTreeItemType getType() {
+        return type;
     }
 
     @Override

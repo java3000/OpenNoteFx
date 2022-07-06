@@ -7,15 +7,15 @@
     <left>
         <TreeView fx:id="mainTreeView" prefHeight="200.0" prefWidth="200.0" showRoot="false" BorderPane.alignment="CENTER">
             <contextMenu>
-                <ContextMenu fx:id="cmTF">
+<!--                <ContextMenu fx:id="cmTF">
                     <items>
                         <MenuItem id="addbook" text="%main_view.tree.menu.add.notebook"  onAction="#addNotebook" />
                         <MenuItem id="addnote" text="%main_view.tree.menu.add.note" onAction="#addNote" />
                         <MenuItem id="removebook" text="%main_view.tree.menu.remove.notebook" onAction="#removeNotebook" />
-                        <!--<MenuItem text="%main_view.tree.menu.remove.note" onAction="#removeNote" />
-                        <MenuItem text="%main_view.tree.menu.edit" onAction="#editNote" />-->
+                        &lt;!&ndash;<MenuItem text="%main_view.tree.menu.remove.note" onAction="#removeNote" />
+                        <MenuItem text="%main_view.tree.menu.edit" onAction="#editNote" />&ndash;&gt;
                     </items>
-                </ContextMenu>
+                </ContextMenu>-->
             </contextMenu>
         </TreeView>
     </left>

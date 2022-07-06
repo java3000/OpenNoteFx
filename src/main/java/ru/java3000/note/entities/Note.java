@@ -8,9 +8,9 @@ import ru.java3000.note.services.LocalDateAdapter;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
-//@XmlRootElement
+
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Note {
+public class Note implements NoteTreeItem {
 
     @XmlElement
     private UUID deviceID;
@@ -29,13 +29,15 @@ public class Note {
     @XmlElement
     public String text;
     @XmlElement
-    private String caption;
+    private String name;
     @XmlElement
     private String shareLink;
     @XmlElement
     private boolean isEncoded;
     @XmlElement
     private String encodingHash;
+
+    private NoteTreeItemType type = NoteTreeItemType.NOTE;
 
     public Note() {
     }
@@ -100,11 +102,12 @@ public class Note {
     }
 
     public String getCaption() {
-        return caption;
+        return name;
     }
 
-    public void setCaption(String caption) {
-        this.caption = caption;
+    @Override
+    public void setName(String caption) {
+        this.name = caption;
     }
 
     public String getShareLink() {
@@ -139,8 +142,17 @@ public class Note {
         this.order = order;
     }
 
+    public NoteTreeItemType getType() {
+        return type;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
-        return caption;
+        return name;
     }
 }

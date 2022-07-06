@@ -2,23 +2,27 @@ package ru.java3000.note.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.util.Callback;
 import org.kordamp.ikonli.javafx.FontIcon;
 import ru.java3000.note.OpenNoteFx;
 import ru.java3000.note.entities.Note;
+import ru.java3000.note.entities.NoteTreeItem;
 import ru.java3000.note.entities.Notebook;
 import ru.java3000.note.helpers.TextFieldTreeCellImpl;
 
-import java.time.LocalDateTime;
+import java.text.MessageFormat;import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class Main_viewController {
 
     @FXML
     private TreeView mainTreeView;
-    @FXML
-    private ContextMenu cmTF;
+    //@FXML
+    //private ContextMenu cmTF;
     @FXML
     private MenuItem close;
     @FXML
@@ -29,16 +33,22 @@ public class Main_viewController {
     private MenuBar systemMenu;
 
     public  boolean empty = true;
+    Locale currentLocale;
+    ResourceBundle messages;
 
     public void initialize() {
         TreeItem<Object> root = new TreeItem<>();
         root.setExpanded(true);
-        mainTreeView.setRoot(root);
         mainTreeView.setEditable(true);
-        mainTreeView.setCellFactory((Callback<TreeView<Object>, TreeCell<Object>>) p -> new TextFieldTreeCellImpl());
+        mainTreeView.setCellFactory((Callback<TreeView<NoteTreeItem>, TreeCell<NoteTreeItem>>) p -> new TextFieldTreeCellImpl());
+        mainTreeView.setRoot(root);
+
+        //todo get locale from settings, or platform if not in settings
+        currentLocale = new Locale("ru", "RU");
+        messages = ResourceBundle.getBundle("ru.java3000.note.messages", currentLocale);
 
         //todo place somethere
-        /*if(mainTreeView.getRoot().getChildren().isEmpty()) {
+       /* if(mainTreeView.getRoot().getChildren().isEmpty()) {
             cmTF.getItems().stream().filter(x -> x.getId().matches("addnote")).findFirst().get().setDisable(true);
             cmTF.getItems().stream().filter(x -> x.getId().matches("removebook")).findFirst().get().setDisable(true);
             systemMenu.getMenus().stream().filter(x -> x.getId().matches("uppermenu")).findFirst().get()
@@ -63,7 +73,7 @@ public class Main_viewController {
     }
 
     public void addNotebook() {
-        String notebookName = "New Notebook"; //todo i18ize
+        String notebookName = messages.getString("new.notebook"); //todo i18ize
 
         Notebook noteBook = new Notebook();
         noteBook.setName(notebookName);
@@ -81,27 +91,19 @@ public class Main_viewController {
     }
 
     public void addNote(ActionEvent actionEvent) {
-        String noteName = "New Note";
+        String noteName = messages.getString("new.note");
 
         Note note = new Note();
-        note.setCaption(noteName);
+        note.setName(noteName);
         note.setCreationDateTime(LocalDateTime.now());
 
-        //TreeItem source = (TreeItem)actionEvent.getSource();
-        //source.getChildren().add(new TreeItem<>(note, new FontIcon("ti-notepad:24")));
-        //source.getChildren().add(new TreeItem<>(note, new FontIcon("ti-receipt:24")));
+        TreeItem newNote = new TreeItem<String>("New Employee");
+        //getTreeItem().getChildren().add(newNote);
+        //source.nextSibling(new TreeItem<>(note, new FontIcon("ti-notepad:24")));
 
     }
 
     public void removeNotebook(ActionEvent actionEvent) {
-        //todo replace with input from helper class
-        Dialog noteRemoveDialog = new ChoiceDialog("");
-        noteRemoveDialog.setTitle("Удалить блокнот");
-        noteRemoveDialog.setHeaderText("Вы действительно хотите удалить блокнот " + ((TreeItem)actionEvent.getSource()).getValue().toString());
-        Optional<String> entered = noteRemoveDialog.showAndWait();
-        String result = "";
-
-        if (entered.isPresent()) result = entered.get();
-        //todo
+        //
     }
 }

@@ -3,17 +3,58 @@ package ru.java3000.note.helpers;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
+import org.kordamp.ikonli.javafx.FontIcon;
+import ru.java3000.note.entities.Note;
+import ru.java3000.note.entities.NoteTreeItem;
+import ru.java3000.note.entities.NoteTreeItemType;
+import ru.java3000.note.entities.Notebook;
 
-public final class TextFieldTreeCellImpl extends TreeCell<Object> {
+import java.time.LocalDateTime;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+public final class TextFieldTreeCellImpl extends TreeCell<NoteTreeItem> {
     private TextField textField;
-    private ContextMenu addMenu = new ContextMenu();
+    private ContextMenu noteMenu = new ContextMenu();
+    private ContextMenu notebookMenu = new ContextMenu();
+    Locale currentLocale;
+    ResourceBundle messages;
 
     public TextFieldTreeCellImpl() {
-        MenuItem addMenuItem = new MenuItem("Add Note");
-        addMenu.getItems().add(addMenuItem);
-        addMenuItem.setOnAction((EventHandler) t -> {
-            TreeItem newEmployee = new TreeItem<String>("New Employee");
-            getTreeItem().getChildren().add(newEmployee);
+        currentLocale = new Locale("ru", "RU");
+        messages = ResourceBundle.getBundle("ru.java3000.note.messages", currentLocale);
+
+        MenuItem addNoteMenuItem = new MenuItem("Add Note"); //todo i18n
+        noteMenu.getItems().add(addNoteMenuItem);
+        addNoteMenuItem.setOnAction((EventHandler) t -> {
+
+
+            currentLocale = new Locale("ru", "RU");
+
+            String noteName = messages.getString("new.note");
+            Note note = new Note();
+            note.setName(noteName);
+            note.setCreationDateTime(LocalDateTime.now());
+
+            TreeItem newNote = new TreeItem<>(note, new FontIcon("ti-notepad:24"));
+            getTreeItem().getChildren().add(newNote);
+        });
+
+        MenuItem addNoteBookMenuItem = new MenuItem("Add NoteBook"); //todo i18n
+        notebookMenu.getItems().add(addNoteBookMenuItem);
+        addNoteBookMenuItem.setOnAction((EventHandler) t -> {
+
+
+            currentLocale = new Locale("ru", "RU");
+
+            String notebookName = messages.getString("new.notebook"); //todo i18ize
+
+            Notebook noteBook = new Notebook();
+            noteBook.setName(notebookName);
+            noteBook.setCreationTime(LocalDateTime.now());
+
+            TreeItem newNoteBook = new TreeItem<>(noteBook, new FontIcon("ti-agenda:24"));
+            getTreeItem().getChildren().add(newNoteBook);
         });
     }
 
@@ -33,12 +74,12 @@ public final class TextFieldTreeCellImpl extends TreeCell<Object> {
     public void cancelEdit() {
         super.cancelEdit();
 
-        setText((String) getItem());
+        setText(getItem().toString());
         setGraphic(getTreeItem().getGraphic());
     }
 
     @Override
-    public void updateItem(Object item, boolean empty) {
+    public void updateItem(NoteTreeItem item, boolean empty) {
         super.updateItem(item, empty);
 
         if (empty) {
@@ -54,10 +95,12 @@ public final class TextFieldTreeCellImpl extends TreeCell<Object> {
             } else {
                 setText(getString());
                 setGraphic(getTreeItem().getGraphic());
-                if (
-                        !getTreeItem().isLeaf() && getTreeItem().getParent() != null
-                ) {
-                    setContextMenu(addMenu);
+                //if (!getTreeItem().isLeaf() && getTreeItem().getParent() != null) {
+                if (getTreeItem().getValue().getType() == NoteTreeItemType.NOTEBOOK) {
+                    setContextMenu(noteMenu);
+                }
+                else {
+
                 }
             }
         }
@@ -67,7 +110,9 @@ public final class TextFieldTreeCellImpl extends TreeCell<Object> {
         textField = new TextField(getString());
         textField.setOnKeyReleased(t -> {
             if (t.getCode() == KeyCode.ENTER) {
-                commitEdit(textField.getText());
+                //commitEdit(textField.getText());
+                getItem().setName(textField.getText());
+                commitEdit(getItem());
             } else if (t.getCode() == KeyCode.ESCAPE) {
                 cancelEdit();
             }
